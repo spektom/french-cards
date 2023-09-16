@@ -14,8 +14,8 @@
         loadPreferences();
         loadActivities();
         $("#activities").on("change", selectActivity);
-        $("#nextButton").on("click", function() { openNextSentence(1) });
-        $("#prevButton").on("click", function() { openNextSentence(-1) });
+        $("#prevButton").on("click", function() { openSentence(-1) });
+        $("#nextButton").on("click", function() { openSentence(1) });
         $("#speakerButton").on("click", toggleSpeakerButton);
         updateSpeakerButton(muted);
     }
@@ -46,10 +46,10 @@
         activityCards = activities[activity].slice(0);
         shuffleArray(activityCards);
         currentSentence = 0;
-        openNextSentence();
+        openSentence();
     }
 
-    function openNextSentence(increment = 0) {
+    function openSentence(increment = 0) {
         currentSentence += increment;
         if (currentSentence < 0) { currentSentence = activityCards.length -1; }
         else if (currentSentence >= activityCards.length) { currentSentence = 0 ; }
