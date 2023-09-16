@@ -1,17 +1,21 @@
 (function () {
-    const colors = ["#019875", "#1E8BC3", "#D91E18", "#D35400", "#8E44AD", "#C0392B"];
+    const colors = ["#22AF4B", "#1E8BC3", "#D91E18", "#D35400", "#8E44AD", "#C0392B", "#0F89CA"];
+
+    const speechEngine = new SpeechSynthesisUtterance();
+    speechEngine.lang = 'fr-FR';
 
     var muted;
     var activities;
     var activityCards;
     var currentCard;
-    var currentQuestion;
+    var currentSentence;
 
     function initialize() {
         loadPreferences();
         loadActivities();
         $("#activities").on("change", selectActivity);
-        $("#nextButton").on("click", openNextCard);
+        $("#nextButton").on("click", function() { openNextSentence(1) });
+        $("#prevButton").on("click", function() { openNextSentence(-1) });
         $("#speakerButton").on("click", toggleSpeakerButton);
         updateSpeakerButton(muted);
     }
@@ -41,17 +45,21 @@
         const activity = $("#activities option:selected").val();
         activityCards = activities[activity].slice(0);
         shuffleArray(activityCards);
-        currentQuestion = 0;
-        openNextCard();
+        currentSentence = 0;
+        openNextSentence();
     }
 
-    function openNextCard() {
+    function openNextSentence(increment = 0) {
+        currentSentence += increment;
+        if (currentSentence < 0) { currentSentence = activityCards.length -1; }
+        else if (currentSentence >= activityCards.length) { currentSentence = 0 ; }
+        
         currentCard = 0;
         $("#cardsPanel").empty();
         $("#cardsPanel").append($('<div id="card0" class="card"/>').append(
-            $('<div class="cardText"/>').text(activityCards[currentQuestion][0])));
+            $('<div class="cardText"/>').text(activityCards[currentSentence][0])));
         $("#cardsPanel").append($('<div id="card1" class="card"/>').append(
-            $('<div class="cardText"/>').text(activityCards[currentQuestion][1])));
+            $('<div class="cardText"/>').text(activityCards[currentSentence][1])));
         $("#card0").css("background-color", colors[Math.floor(Math.random() * colors.length)]);
         $("#card1").css("background-color", "#34495E");
         $("#card1").css("top", "200px");
@@ -60,8 +68,7 @@
             currentCard = (currentCard + 1) % 2;
             showCard(currentCard);
         });
-        currentQuestion = (currentQuestion + 1) % activityCards.length;
-        speak($("#card0").text());
+        speakCard();
     }
 
     function hideCard(cardNum) {
@@ -72,9 +79,7 @@
     function showCard(cardNum) {
         const $card = $("#card" + cardNum);
         $card.animate({ top: "-=200" }, 150);
-        if (cardNum == 0) {
-            speak($card.text());
-        }
+        if (cardNum == 0) { speakCard(); }
     }
 
     function updateSpeakerButton(muted) {
@@ -86,13 +91,17 @@
         muted = !muted;
         updateSpeakerButton(muted);
         savePreferences();
+        if (!muted) {
+            speakCard();
+        }
     }
 
-    function speak(text, lang = 'fr-FR') {
+    function speakCard() {
         if (!muted) {
-            var speech = new SpeechSynthesisUtterance(text);
-            speech.lang = lang;
-            window.speechSynthesis.speak(speech);
+            var text = $("#card0").text()
+            text = text.replace('-', '‑'); // non-breaking hyphen
+            speechEngine.text = text;
+            window.speechSynthesis.speak(speechEngine);
         }
     }
 

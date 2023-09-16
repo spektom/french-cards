@@ -5,6 +5,7 @@ body {
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
+    background-color: black;
 }
 
 @font-face {
@@ -27,6 +28,8 @@ body {
     font-family: Montserrat, Arial;
     border: 0;
     border-radius: 0;
+    background-color: black;
+    color: burlywood;
 }
 
 #cardsPanel {
@@ -57,7 +60,7 @@ body {
 }
 
 #buttonsPanel {
-    margin-top: 40px;
+    margin-top: 50px;
 }
 
 .button {
@@ -66,7 +69,7 @@ body {
     padding: 10px;
     cursor: pointer;
     color: #efefef;
-    margin: auto;
+    margin: 5px;
     margin-top: 30px;
     background-color: #019875;
     border: 2px solid #1E824C;
