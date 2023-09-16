@@ -1,2 +1,3 @@
 # french-cards
-Flash cards for learning basic French
+
+Flash cards for learning basic French.

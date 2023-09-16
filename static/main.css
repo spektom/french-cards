@@ -1,0 +1,97 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+@font-face {
+    font-family: Montserrat;
+    src: url('Montserrat-Medium.ttf');
+}
+
+#content {
+    text-align: center;
+    margin-top: 70px;
+}
+
+#activitiesPanel {
+    margin-top: 50px;
+}
+
+#activities {
+    width: 300px;
+    font-size: 1.7em;
+    font-family: Montserrat, Arial;
+    border: 0;
+    border-radius: 0;
+}
+
+#cardsPanel {
+    width: 300px;
+    height: 200px;
+    margin: auto;
+    margin-top: 40px;
+    border: 3px solid #ABB7B7;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.card {
+    width: 300px;
+    height: 200px;
+    position: absolute;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    color: #efefef;
+    cursor: pointer;
+}
+
+.cardText {
+    font-family: Montserrat, Arial;
+    font-size: 1.5em;
+}
+
+#buttonsPanel {
+    margin-top: 40px;
+}
+
+.button {
+    width: 80px;
+    font-size: 1.5em;
+    padding: 10px;
+    cursor: pointer;
+    color: #efefef;
+    margin: auto;
+    margin-top: 30px;
+    background-color: #019875;
+    border: 2px solid #1E824C;
+    border-radius: 5px;
+    font-family: Montserrat, Arial;
+    display: inline;
+}
+
+.button:hover {
+    opacity: .6;
+}
+
+#speakerButton {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    right: 0;
+    font-size: 2em;
+    padding: 5px;
+}
+
+#speakerButton::before {
+    content: "🔊";
+}
+
+#speakerButton.muted::before {
+    content: "🔇";
+}
