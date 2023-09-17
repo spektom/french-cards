@@ -55,6 +55,7 @@ body {
 }
 
 .cardText {
+    margin: 0 5px;
     font-family: Montserrat, Arial;
     font-size: 1.5em;
 }

@@ -31,7 +31,7 @@
     function shuffleArray(a, b, c, d) { c = a.length; while (c) b = Math.random() * (--c + 1) | 0, d = a[c], a[c] = a[b], a[b] = d }
 
     function loadActivities() {
-        $.getJSON("data/activities.json", function (data) {
+        $.getJSON("data/activities.json?v=2", function (data) {
             activities = data;
             const $activities = $("#activities");
             $.each(activities, function (name) {
