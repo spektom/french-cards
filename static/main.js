@@ -99,7 +99,7 @@
     function speakCard() {
         if (!muted) {
             var text = $("#card0").text()
-            text = text.replace('-', '‑'); // non-breaking hyphen
+            text = text.replaceAll('-', '‑'); // non-breaking hyphen
             speechEngine.text = text;
             window.speechSynthesis.speak(speechEngine);
         }
